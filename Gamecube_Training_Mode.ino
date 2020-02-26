@@ -119,48 +119,41 @@ void loop(){
 }
 
 void control(){
-  for (uint8_t action = 0; action <2; action++){
     // Get data of controller
     auto r1 = GamecubeController.getReport();
     //Reporting all buttons, sticks, sliders
 
-    int shield;
-    int DI;
-    switch(action){
-      case 0: 
-        shield = 0;
-        break;
-      case 1: 
-        shield = 255;
-        break;
-
-    }
+    d.report.xAxis = 255; 
+    for (int i=0;i<1;i++){GamecubeConsole.write(d);}
+    d.report.xAxis = 0; 
+    for (int i=0;i<3;i++){GamecubeConsole.write(d);}
     
-    d.report.a = r1.a;
-    d.report.b = r1.b;
-    //Changes X to report Z button
-    d.report.x = r1.x;
-    d.report.y = r1.y;
-    d.report.start = r1.start;
     
-    d.report.dleft = r1.dleft;
-    d.report.dright = r1.dright;
-    d.report.ddown = r1.ddown;
-    d.report.dup = r1.dup;
-
-    d.report.z = r1.z;
-    d.report.r = r1.r;
-    d.report.l = r1.l;
-    
-    d.report.xAxis = r1.xAxis;
-    d.report.yAxis = r1.yAxis;
-    d.report.cxAxis = r1.cxAxis;
-    d.report.cyAxis = r1.cyAxis;
-    d.report.left = r1.left;
-    d.report.right = shield;
-  
-    // Mirror the controller data to the console  
-    GamecubeConsole.write(d);
+//    d.report.a = r1.a;
+//    d.report.b = r1.b;
+//    //Changes X to report Z button
+//    d.report.x = r1.x;
+//    d.report.y = r1.y;
+//    d.report.start = r1.start;
+//    
+//    d.report.dleft = r1.dleft;
+//    d.report.dright = r1.dright;
+//    d.report.ddown = r1.ddown;
+//    d.report.dup = r1.dup;
+//
+//    d.report.z = r1.z;
+//    d.report.r = r1.r;
+//    d.report.l = r1.l;
+//    
+//    d.report.xAxis = r1.xAxis;
+//    d.report.yAxis = r1.yAxis;
+//    d.report.cxAxis = r1.cxAxis;
+//    d.report.cyAxis = r1.cyAxis;
+//    d.report.left = r1.left;
+//    d.report.right = r1.right;
+//  
+//    // Mirror the controller data to the console  
+//    GamecubeConsole.write(d);
     
     // Enable rumble
     if (d.status.rumble) {
@@ -199,4 +192,3 @@ void control(){
         break;
     }
   }
-}
